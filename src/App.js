@@ -4,7 +4,7 @@ import InputText from "./Components/Input";
 import Table from "./Components/Table";
 
 const { useState, useEffect } = React;
-const header = [{ id: 1, name: "frank", createDate: new Date(), editable:false,status: "" }];
+const header = [{ id: 1, name: "frank", createDate: new Date(), editable:false,status: "", display:false }];
 
 function App() {
   const [state, setState] = useState([]);

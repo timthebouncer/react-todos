@@ -2,7 +2,7 @@ import React, {useState} from "react"
 
 
 let id = 1;
-let status = false
+
 function InputText(props) {
   const [state, setState] = useState("");
   // id++;
@@ -22,7 +22,7 @@ function InputText(props) {
         onClick={() => {
           props.setState([
             ...props.state,
-            { id: ++id, name: state, createDate: new Date(), editable:false, status: "" }
+            { id: ++id, name: state, createDate: new Date(), editable:false, status: "", display:false }
           ]);
           setState("");
         }}

@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function formatDate(d) {
   //d = createDate
@@ -48,11 +47,23 @@ function deleteHandler(props, setState, index) {
   // setState(state.slice(0, index).concat(state.slice(index + 1, state.length)))
 }
 
-// <i className="far fa-trash-alt"/>
 function Table(props) {
   const [disable, setDisable] = useState(true)
-  const completed = [];
-  // const icon = <i className="fas fa-check"/>;
+
+
+  function handleClick(state, setState, item){
+    if(item.display === false){
+      item.display = true
+      setDisable(!disable)
+      setState([...state])
+      console.log(state)
+    }else if(item.display === true){
+      item.display = false
+      setDisable(!disable)
+      setState([...state])
+    }
+  }
+
   return (
     <div className="fancy-table-wrapper">
       <table className="fancy-table">
@@ -87,14 +98,14 @@ function Table(props) {
             )}
             <td>{formatDate(item.createDate)}</td>
             <td>
-              <button className="c-icon" onClick={()=>setDisable(!disable)}>
+              <button className="c-icon" onClick={()=>handleClick(props.state, props.setState,item)}>
                 <i className="fas fa-cog"/>
               </button>
             </td>
             <td>
               <span className="adjust-icon">
-                  {disable? " ": <i className="fas fa-check" style={{marginBottom:15}} onClick={()=>finishHandler(props.state, props.setState, item)}/>}
-                {disable? " ": <i className="far fa-trash-alt" onClick={() => deleteHandler(props, props.setState, index)}/>}
+                  {item.display !== true? " ": <i className="fas fa-check" style={{marginBottom:15}} onClick={()=>finishHandler(props.state, props.setState, item)}/>}
+                {item.display !== true? " ": <i className="far fa-trash-alt" onClick={() => deleteHandler(props, props.setState, index)}/>}
               </span>
             </td>
           </tr>
