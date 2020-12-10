@@ -23,6 +23,7 @@ function App() {
   return (
     <div>
       <div>
+          <Tab/>
       </div>
       <div className="App">
         <h1>ToDo List</h1>
