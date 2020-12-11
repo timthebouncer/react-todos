@@ -1,41 +1,46 @@
-import React from 'react'
-// import Table from "../../Components/Table";
-// import Archive from "../../Components/Archive";
+import React,{useState} from 'react';
 
-function TabList(props) {
+function Tabs(props){
+  const {setIndex} = props
 
-  return <div>
-    <ul>
-      {props.list.map(item=>{
-        return (
-            <Tab item={item} />
-        )
-      })}
-    </ul>
-  </div>
-}
-
-function Tab(props) {
-  const {item} = props
-  return <div>
-    <button>
-      {item.title}
-    </button>
-  </div>
-}
-
-function Tabs(){
-  const list=[{title:"tab1",content:"123"},{title:"tab2",content:"456"},{title:"tab3",content:"789"}];
+  const tabs=[
+    {tabName:"待處理",id:1},
+    {tabName:"已刪除",id:2},
+    {tabName:"已完成",id:3},
+  ];
 
 
+  function tabChoiced(id){
+    setIndex(id)
+  }
 
-  return<div>
+  // const isBox1Show=currentIndex===1 ? 'block' : 'none';
+  // const isbox2Show=currentIndex===2 ? 'block' : 'none';
+  // const isbox3Show=currentIndex===3 ? 'block' : 'none';
 
-      <TabList list={list}/>
-    {/*<button>待處理</button>*/}
-    {/*<button>刪除</button>*/}
-    {/*<button>已完成</button>*/}
-  </div>
+  const tabList= tabs.map(function(res,index) {
+  const tabStyle= 'fancy-tab-btn'
+  return <button key={index} onClick={()=>tabChoiced(res.id)} className={tabStyle}>{res.tabName}</button>
+  });
+  return (
+    <div className="tab-wrapper">
+      <div className="tab-btn">
+        {tabList}
+      </div>
+      {/*<div className="tab-btn">*/}
+      {/*  <div style={{"display":isBox1Show}} >*/}
+
+      {/*  </div>*/}
+      {/*  <div style={{"display":isbox2Show}}>*/}
+
+      {/*  </div>*/}
+      {/*  <div style={{"display":isbox3Show}}>*/}
+
+      {/*  </div>*/}
+      {/*</div>*/}
+    </div>
+  )
+
 }
 
 export default Tabs;
