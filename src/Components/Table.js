@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Archive from "./Archive";
 import Complete from "./Complete";
 
@@ -32,12 +32,12 @@ function finishHandler(state, setState, item){
 
   if(item.status === ""){
     item.status = "finished"
+    item.display = false
     setState([...state])
-    console.log(state)
   }else{
     item.status = ""
+    item.display = false
     setState([...state])
-    console.log(state,3)
   }
 }
 
@@ -46,6 +46,7 @@ function deleteHandler(props, setState, index, item) {
   const {state} = props;
   if(item.exist === true){
     item.exist = false
+    item.display = false
     setState([...state])
     // setState([...state.slice(0, index), ...state.slice(index + 1, state.length)]);
     // setState(state.slice(0, index).concat(state.slice(index + 1, state.length)))
@@ -55,13 +56,37 @@ function deleteHandler(props, setState, index, item) {
 
 function Table(props) {
   const [disable, setDisable] = useState(true)
+
+  const exist = props.state.find(item=> item.exist === false)
+
+  // 另一種方式
+  // const list = props.state.filter(function (item){
+  //  return item.exist === false
+  // })
+  //
+  // console.log(list)
+
+  useEffect(()=>{
+    switch (props.currentIndex) {
+      case 1:
+        props.setIndex(1)
+        break;
+      case 2: if(exist === undefined){
+        alert("沒有被刪除代辦事項")
+        props.setIndex(1)
+  }
+        break;
+      case 3:
+        props.setIndex(3)
+    }
+  })
+
   function handleClick(state, setState, item){
 
     if(item.display === false){
       item.display = true
       setDisable(!disable)
       setState([...state])
-      console.log(state)
     }else if(item.display === true){
       item.display = false
       setDisable(!disable)
@@ -116,7 +141,7 @@ function Table(props) {
                 {item.display !== true? " ": <i className="far fa-trash-alt" onClick={() => deleteHandler(props, props.setState, index,item)}/>}
               </span>
               </td>
-            </tr>: ""
+            </tr>:""
           ))}
           </tbody>
         </table>
@@ -125,7 +150,7 @@ function Table(props) {
   }else if(props.currentIndex === 2){
     return <Archive props={props} handleClick={handleClick} />
   }else {
-    return <Complete props={props} handleClick={handleClick} />
+    return <Complete props={props} handleClick={handleClick} finishHandler={finishHandler} formatDate={formatDate} />
   }
 
 }

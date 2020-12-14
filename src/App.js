@@ -5,7 +5,7 @@ import Table from "./Components/Table";
 import Tabs from "./view/components";
 
 const { useState, useEffect } = React;
-const header = [{ id: 1, name: "frank", createDate: new Date(), editable:false,status: "", display:false, exist:true }];
+const header = [{ id: 1, name: "frank", createDate: new Date(), editable:false,status: "", display:false, exist:true, completeTime: new Date()}];
 
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
       }, 300);
       //能夠引起useEffect的依賴
     }, []);
+
   return (
     <div className="container">
       <div className="tab-wrapper">

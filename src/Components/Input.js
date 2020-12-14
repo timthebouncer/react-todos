@@ -22,7 +22,7 @@ function InputText(props) {
           onClick={() => {
             props.setState([
               ...props.state,
-              { id: ++id, name: state, createDate: new Date(), editable:false, status: "", display:false,exist:true }
+              { id: ++id, name: state, createDate: new Date(), editable:false, status: "", display:false,exist:true, completeTime: new Date()}
             ]);
             setState("");
           }}

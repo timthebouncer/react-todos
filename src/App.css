@@ -25,7 +25,7 @@
   border: solid 1px #2bd850;
   cursor: pointer;
 }
-.fancy-tab-btn:hover{
+.fancy-tab-btn:focus{
   color: #ffffff;
   background-color: #d67232;
 }
