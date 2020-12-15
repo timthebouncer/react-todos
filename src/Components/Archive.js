@@ -16,7 +16,7 @@ function deleteHandler(state, setState, index) {
 }
 
 function Archive(props){
-
+  console.log(props)
 
     return <div className="fancy-table-wrapper">
 

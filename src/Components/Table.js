@@ -1,13 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Archive from "./Archive";
 import Complete from "./Complete";
+import Filter from "./Filter";
 
 function formatDate(d) {
   //d = createDate
-  let HH = d.getHours();
-  let mm = d.getMinutes();
-  let ss = d.getSeconds();
-  return HH + ":" + mm + ":" + ss;
+  let HH = d.getHours()+'';
+  let mm = d.getMinutes()+'';
+  let ss = d.getSeconds()+'';
+  // let ss = Math.round(new Date() / 1000);
+  return HH.padStart(2, '0') + ":" + mm.padStart(2, '0') + ":" + ss.padStart(2, '0');
 }
 
 function editHandler(state, setState, item) {
@@ -33,6 +35,10 @@ function finishHandler(state, setState, item){
   if(item.status === ""){
     item.status = "finished"
     item.display = false
+
+    let d = new Date()
+    item.completeTime.push(formatDate(d))
+
     setState([...state])
   }else{
     item.status = ""
@@ -57,30 +63,6 @@ function deleteHandler(props, setState, index, item) {
 function Table(props) {
   const [disable, setDisable] = useState(true)
 
-  const exist = props.state.find(item=> item.exist === false)
-
-  // 另一種方式
-  // const list = props.state.filter(function (item){
-  //  return item.exist === false
-  // })
-  //
-  // console.log(list)
-
-  useEffect(()=>{
-    switch (props.currentIndex) {
-      case 1:
-        props.setIndex(1)
-        break;
-      case 2: if(exist === undefined){
-        alert("沒有被刪除代辦事項")
-        props.setIndex(1)
-  }
-        break;
-      case 3:
-        props.setIndex(3)
-    }
-  })
-
   function handleClick(state, setState, item){
 
     if(item.display === false){
@@ -103,13 +85,15 @@ function Table(props) {
           <tr>
             <th  style={{width:100}}></th>
             <th  style={{width:200}}>名字</th>
-            <th  style={{width:200}}>新增時間</th>
+            <th className="fancy-time"  style={{width:200}}>新增時間
+              <span><Filter/></span>
+            </th>
             <th  style={{width:200}}>操作</th>
           </tr>
           </thead>
           <tbody className="content-wrapper">
           {props.state.map((item, index) => (
-            item.exist === true ?
+            (item.exist === true) && (item.status === "") ?
             <tr key={item.id} style={{textDecoration: item.status === "finished" ? "line-through": "none"}}>
               <td>{index + 1}</td>
               {(item.editable === false) ? (
