@@ -84,9 +84,9 @@ function Table(props) {
           <thead>
           <tr>
             <th  style={{width:100}}></th>
-            <th  style={{width:200}}>名字</th>
+            <th  style={{width:200}} >名字</th>
             <th className="fancy-time"  style={{width:200}}>新增時間
-              <span><Filter/></span>
+              <span><Filter props={props} /></span>
             </th>
             <th  style={{width:200}}>操作</th>
           </tr>
